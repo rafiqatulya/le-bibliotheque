@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f5efe4;
+    color: #2e2721;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Tekstur kertas klasik lembut */
+.paper-grain {
+  background-color: #f5efe4;
+  background-image:
+    radial-gradient(rgba(130, 105, 72, 0.06) 1px, transparent 0),
+    radial-gradient(rgba(166, 134, 88, 0.04) 1px, transparent 0),
+    linear-gradient(180deg, rgba(255, 250, 240, 0.45) 0%, rgba(235, 223, 200, 0.35) 100%);
+  background-size: 26px 26px, 42px 42px, 100% 100%;
+  background-position: 0 0, 13px 13px, 0 0;
+}
+
+/* Sulap halaman PDF A4 putih HVS menjadi kertas klasik hangat */
+.pdf-paper-classic {
+  background-color: #f2e8d5;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 250, 238, 0.6), transparent 60%),
+    radial-gradient(circle at 85% 80%, rgba(196, 168, 122, 0.16), transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(120, 96, 66, 0.015) 0px,
+      rgba(120, 96, 66, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.pdf-canvas-classic {
+  mix-blend-mode: multiply;
+  filter: sepia(0.18) contrast(0.95) brightness(0.98);
+}
+
+.pdf-paper-soft {
+  background-color: #faf7f2;
+}
+
+.pdf-canvas-soft {
+  mix-blend-mode: multiply;
+  filter: contrast(0.96);
+}
+
+.pdf-paper-night {
+  background-color: #211d19;
+}
+
+.pdf-canvas-night {
+  filter: invert(0.88) sepia(0.28) hue-rotate(180deg) contrast(0.92);
+}
+
+/* Transisi layar fade-in & fade-out halus */
+@keyframes fadeInSmooth {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutSmooth {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSmooth 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOutSmooth 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Efek splash screen slow bounce & watery float */
+@keyframes wateryFloat {
+  0% {
+    transform: translateY(0px) scale(1.01) rotate(-0.35deg);
+  }
+  33% {
+    transform: translateY(-7px) scale(1.028) rotate(0.35deg);
+  }
+  66% {
+    transform: translateY(4px) scale(1.016) rotate(-0.2deg);
+  }
+  100% {
+    transform: translateY(0px) scale(1.01) rotate(-0.35deg);
+  }
+}
+
+.animate-watery-float {
+  animation: wateryFloat 6.5s ease-in-out infinite;
+}
+
+/* Animasi bunga sakura berguguran halus */
+@keyframes sakuraDrift {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.68;
+  }
+  80% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(-48px, 110vh, 0) rotate(260deg);
+    opacity: 0;
+  }
+}
+
+.sakura-petal {
+  animation-name: sakuraDrift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Animasi burung klasik melayang pelan di bagian atas */
+@keyframes birdGlide {
+  0% {
+    transform: translate3d(-15vw, 0px, 0) scale(0.92);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.42;
+  }
+  50% {
+    transform: translate3d(48vw, -14px, 0) scale(1);
+    opacity: 0.38;
+  }
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(115vw, 6px, 0) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes wingFlap {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.55);
+  }
+}
+
+.bird-glide {
+  animation: birdGlide 28s linear infinite;
+}
+
+.bird-wing {
+  transform-origin: center;
+  animation: wingFlap 2.4s ease-in-out infinite;
+}
+
+/* Lapisan teks PDF untuk fitur block kata/kalimat */
+.pdf-text-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  line-height: 1;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.pdf-text-layer span {
+  position: absolute;
+  white-space: pre;
+  color: transparent;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.pdf-text-layer ::selection {
+  background: rgba(215, 174, 84, 0.45);
+}
+
+/* Sembunyikan scrollbar horizontal di pil kategori */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
